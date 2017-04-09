@@ -1,9 +1,10 @@
-from __future__ import absolute_import, print_function, division
-import pandas as pd
+from __future__ import absolute_import, division, print_function
+
 import numpy as np
-from sklearn.preprocessing import Imputer
-from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder
+import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import (Imputer, LabelEncoder, OneHotEncoder,
+                                   StandardScaler)
 
 # Importing Data
 dataset = pd.read_csv('Data.csv')
@@ -50,7 +51,3 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.16, rand
 # x_2d = tsne.fit_transform(X)
 # x_train_2d = tsne.fit_transform(X_train)
 # x_test_2d = tsne.fit_transform(X_test)
-
-
-
-
