@@ -1,6 +1,5 @@
 from DataPreprocessor import *
 # Importing Libraries
-import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
@@ -21,10 +20,9 @@ z1 = np.vectorize(add)
 ARRAYS_WITH_PREDS = []
 for i in np.arange(-0.5,0.6,0.1):
     ARRAYS_WITH_PREDS.append(z1(Y_pred,i))
-
 final_accuracy = 0
 for preds in ARRAYS_WITH_PREDS:
-    final_accuracy+=accuracy_score(Y_test,preds,normalize=True,sample_weight=None)
+    final_accuracy += accuracy_score(Y_test,preds,normalize=True,sample_weight=None)
 
 print 'Accuracy = ',final_accuracy*100, '%'
 
