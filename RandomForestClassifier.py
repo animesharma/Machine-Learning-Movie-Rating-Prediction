@@ -18,7 +18,7 @@ Y_pred = classifier.predict(X_test)
 Y_pred = Y_pred.reshape(-1,1)
 z1 = np.vectorize(add)
 ARRAYS_WITH_PREDS = []
-for i in np.arange(-0.5,0.6,0.1):
+for i in np.arange(-0.3,0.4,0.1):
     ARRAYS_WITH_PREDS.append(z1(Y_pred,i))
 final_accuracy = 0
 for preds in ARRAYS_WITH_PREDS:
