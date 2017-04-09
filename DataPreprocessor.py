@@ -11,7 +11,7 @@ dataset = pd.read_csv('Data.csv')
 
 
 # Removal of columns
-df = dataset.drop([col for col in ['movie_title', 'color', 'director_name', 'actor_2_name', 'actor_1_name', 'budget',
+df = dataset.drop([col for col in ['movie_title', 'color', 'director_name', 'actor_2_name', 'actor_1_name',
                                    'actor_3_name', 'plot_keywords', 'movie_imdb_link', 'content_rating',
                                    'title_year', 'aspect_ratio', 'genres', 'num_critic_for_reviews', 'num_voted_users',
                                    'cast_total_facebook_likes', 'num_user_for_reviews']
@@ -39,7 +39,7 @@ X = X[:,1:]
 #To account for Dummy Variable Trap; Removed First Column
 
 # Splitting of Data
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.15, random_state = 0)
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.16, random_state = 0)
 
 # Feature Scaling
 #stdsc = StandardScaler()
