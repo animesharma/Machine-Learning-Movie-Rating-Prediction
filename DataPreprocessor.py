@@ -13,9 +13,8 @@ from pandas.tools.plotting import scatter_matrix
 dataset = pd.read_csv('Data.csv')
 
 # Removing some columns which aren't useful for our calculation
-df = dataset.drop([col for col in ['movie_title', 'color',  'actor_2_name', 'actor_1_name',
-                                   'actor_3_name', 'plot_keywords', 'movie_imdb_link',
-                                   'aspect_ratio', 'genres','facenumber_in_poster']
+df = dataset.drop([col for col in ['movie_title', 'color', 'plot_keywords', 'movie_imdb_link',
+                                   'aspect_ratio', 'genres','facenumber_in_poster', 'actor_3_name']
                    if col in dataset], axis=1)
 
 #get the positions of the columns which are strings
@@ -23,6 +22,10 @@ director_name_pos = df.columns.get_loc("director_name")
 language_pos = df.columns.get_loc("language")
 country_pos = df.columns.get_loc("country")
 content_rating_pos = df.columns.get_loc("content_rating")
+actor_1_name_pos = df.columns.get_loc("actor_1_name")
+actor_2_name_pos = df.columns.get_loc("actor_2_name")
+#actor_3_name_pos = df.columns.get_loc("actor_3_name")
+
 
 #create a exclude list of these excluded attributes
 categorical_fts = []
@@ -30,6 +33,9 @@ categorical_fts.append(director_name_pos)
 categorical_fts.append(language_pos)
 categorical_fts.append(country_pos)
 categorical_fts.append(content_rating_pos)
+categorical_fts.append(actor_1_name_pos)
+categorical_fts.append(actor_2_name_pos)
+#categorical_fts.append(actor_3_name_pos)
 
 #Array of features, exludes the last column
 X = df.iloc[:, :-1].values
@@ -45,6 +51,12 @@ label_country = LabelEncoder()
 X[0:, country_pos] = label_country.fit_transform(X[0:, country_pos])
 label_content_rating = LabelEncoder()
 X[0:, content_rating_pos] = label_content_rating.fit_transform(X[0:, content_rating_pos])
+label_actor_1_name = LabelEncoder()
+X[0:, actor_1_name_pos] = label_actor_1_name.fit_transform(X[0:, actor_1_name_pos])
+label_actor_2_name = LabelEncoder()
+X[0:, actor_2_name_pos] = label_actor_2_name.fit_transform(X[0:, actor_2_name_pos])
+#label_actor_3_name = LabelEncoder()
+#X[0:, actor_3_name_pos] = label_actor_3_name.fit_transform(X[0:, actor_3_name_pos])
 
 # Missing Values
 # df = df.replace(np.nan, ' ', regex=True)  # Only works on dataframe object not on ndarray.
