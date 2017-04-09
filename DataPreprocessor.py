@@ -5,27 +5,51 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import (Imputer, LabelEncoder, OneHotEncoder,
                                    StandardScaler)
+import matplotlib.pyplot as plt
+from pandas.tools.plotting import scatter_matrix
+
 
 # Importing Data
 dataset = pd.read_csv('Data.csv')
 
-
-# Removal of columns
-df = dataset.drop([col for col in ['movie_title', 'color', 'director_name', 'actor_2_name', 'actor_1_name',
-                                   'actor_3_name', 'plot_keywords', 'movie_imdb_link', 'content_rating',
-                                   'title_year', 'aspect_ratio', 'genres', 'num_critic_for_reviews', 'num_voted_users',
-                                   'cast_total_facebook_likes', 'num_user_for_reviews']
+# Removing some columns which aren't useful for our calculation
+df = dataset.drop([col for col in ['movie_title', 'color',  'actor_2_name', 'actor_1_name',
+                                   'actor_3_name', 'plot_keywords', 'movie_imdb_link',
+                                   'aspect_ratio', 'genres','facenumber_in_poster']
                    if col in dataset], axis=1)
 
-X = df.iloc[:, :-1].values  # except last col
-# Used in asarray Y = df.iloc[:, -1:].values  # Last column array
+#get the positions of the columns which are strings
+director_name_pos = df.columns.get_loc("director_name")
+language_pos = df.columns.get_loc("language")
+country_pos = df.columns.get_loc("country")
+content_rating_pos = df.columns.get_loc("content_rating")
+
+#create a exclude list of these excluded attributes
+exlude_list = []
+exlude_list.append(director_name_pos)
+exlude_list.append(language_pos)
+exlude_list.append(country_pos)
+exlude_list.append(content_rating_pos)
+
+#Array of features, exludes the last column
+X = df.iloc[:, :-1].values
+
+# Last column array, string of length 6 (dtype)
 Y = np.asarray(df.iloc[:, -1:].values, dtype="|S6") #numpy is moody
+
+label_director = LabelEncoder()
+X[0:,director_name_pos] = label_director.fit_transform(X[0:,director_name_pos])
+
+
+np.set_printoptions(threshold='nan')
+print(X)
+"""
 
 #Categorical Data Encoding
 l_lang = LabelEncoder()
-X[0:,6] = l_lang.fit_transform(X[0:,6])
+X[0:,6] = l_lang.fit_transform(X[0:, 6])
 l_count = LabelEncoder()
-X[0:,7] = l_count.fit_transform(X[0:,7])
+X[0:,7] = l_count.fit_transform(X[0:, 7])
 
 # Missing Values
 # df = df.replace(np.nan, ' ', regex=True)  # Only works on dataframe object not on ndarray.
@@ -52,3 +76,4 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.16, rand
 # x_2d = tsne.fit_transform(X)
 # x_train_2d = tsne.fit_transform(X_train)
 # x_test_2d = tsne.fit_transform(X_test)
+"""

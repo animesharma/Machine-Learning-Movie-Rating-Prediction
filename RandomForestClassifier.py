@@ -4,14 +4,13 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
 def print_full(x):
-    pd.set_option('display.max_rows', len(x))
+    np.set_printoptions(threshold='nan')
     print(x)
-    pd.reset_option('display.max_rows')
 
 def add(x,y):
     temp = float(x) + y
     return str(temp)
-                 
+
 # Fitting Random Forest Classification to the Training set
 classifier = RandomForestClassifier(n_estimators=999, criterion='entropy', random_state=0,
                                     class_weight='balanced', n_jobs=-1)
