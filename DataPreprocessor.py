@@ -9,6 +9,7 @@ from sklearn.preprocessing import (Imputer, LabelEncoder, OneHotEncoder,
 # Importing Data
 dataset = pd.read_csv('Data.csv')
 
+
 # Removal of columns
 df = dataset.drop([col for col in ['movie_title', 'color', 'director_name', 'actor_2_name', 'actor_1_name', 'budget',
                                    'actor_3_name', 'plot_keywords', 'movie_imdb_link', 'content_rating',
@@ -38,7 +39,7 @@ X = X[:,1:]
 #To account for Dummy Variable Trap; Removed First Column
 
 # Splitting of Data
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.16, random_state = 0)
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.15, random_state = 0)
 
 # Feature Scaling
 #stdsc = StandardScaler()
