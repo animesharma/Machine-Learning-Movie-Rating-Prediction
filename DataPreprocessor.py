@@ -38,7 +38,13 @@ X = df.iloc[:, :-1].values
 Y = np.asarray(df.iloc[:, -1:].values, dtype="|S6") #numpy is moody
 
 label_director = LabelEncoder()
-X[0:,director_name_pos] = label_director.fit_transform(X[0:,director_name_pos])
+X[0:, director_name_pos] = label_director.fit_transform(X[0:, director_name_pos])
+label_language = LabelEncoder()
+X[0:, language_pos] = label_language.fit_transform(X[0:, language_pos])
+label_country = LabelEncoder()
+X[0:, country_pos] = label_country.fit_transform(X[0:, country_pos])
+label_content_rating = LabelEncoder()
+X[0:, content_rating_pos] = label_content_rating.fit_transform(X[0:, content_rating_pos])
 
 
 np.set_printoptions(threshold='nan')
