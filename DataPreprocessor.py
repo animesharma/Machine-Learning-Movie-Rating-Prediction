@@ -52,14 +52,18 @@ imp = Imputer(missing_values='NaN', strategy='mean', axis=0)
 X = imp.fit_transform(X)
 
 # Dummy Variable for CD
+"""
+print(X[1:5,:])
 o_h1 = OneHotEncoder(categorical_features=categorical_fts)
 X = o_h1.fit_transform(X).toarray()
+print(X[1:5,:])
 X = X[:,1:]
+"""
 #To account for Dummy Variable Trap; Removed First Column
 #TODO redo it with 0 considered
 
 # Splitting of Data
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.16, random_state = 0)
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.15, random_state = 0)
 
 # Feature Scaling
 #stdsc = StandardScaler()
