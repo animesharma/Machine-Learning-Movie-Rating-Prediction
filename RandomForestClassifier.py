@@ -21,7 +21,6 @@ classifier.fit(X_train, Y_train.ravel())
 # Predicting the Test set results
 Y_pred = classifier.predict(X_test)
 Y_pred = Y_pred.reshape(-1,1)
-mRounder = np.vectorize(round_off)
 z1 = np.vectorize(add)
 ARRAYS_WITH_PREDS = []
 for i in np.arange(-0.5,0.6,0.1):
