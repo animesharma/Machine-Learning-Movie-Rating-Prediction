@@ -16,9 +16,9 @@ dataset = pd.read_csv('Data.csv')
 
 # Removing some columns which aren't useful for our calculation
 df = dataset.drop([col for col in ['movie_title', 'color', 'plot_keywords', 'movie_imdb_link',
-                                   'aspect_ratio', 'genres','actor_2_name','actor_3_name','actor_1_name',
-                                   'director_name']
-                   if col in dataset], axis=1)
+								   'aspect_ratio', 'genres','actor_2_name','actor_3_name','actor_1_name',
+								   'director_name']
+				   if col in dataset], axis=1)
 
 #get the positions of the columns which are strings
 language_pos = df.columns.get_loc("language")
@@ -53,7 +53,7 @@ X = imp.fit_transform(X)
 
 #Lets pick the important features
 model = RandomForestClassifier()
-rfe = RFE(model,15)                  
+rfe = RFE(model,15)
 rfe = rfe.fit(X,Ystr)
 
 #print(rfe.support_)    #These are the coloumns we're keeping
@@ -62,10 +62,10 @@ rfe = rfe.fit(X,Ystr)
 #Drop the unimportant features
 drop_list = []
 for i in range(0,len(rfe.support_)):
-    if rfe.support_[i]:
-        print(df.columns.values[i])     #TODO Remove this later
-    else:
-        drop_list.append(i)
+	if rfe.support_[i]:
+		print(df.columns.values[i])     #TODO Remove this later
+	else:
+		drop_list.append(i)
 X = np.delete(X,drop_list,axis=1)
 
 
