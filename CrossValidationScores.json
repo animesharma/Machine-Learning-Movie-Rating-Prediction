@@ -1,0 +1,35 @@
+[
+	{
+		"model": "LogisticRegression",
+		"mean" : "3.535%"
+	},
+	{
+		"model" : "KNeighboursRegressor",
+		"mean": "-5.275%"
+	},
+	{
+		"model" : "GaussianNaiveBayes",
+		"mean" : "2.395%"
+	},
+	{
+		"model": "MultinomialNaiveBayes",
+		"mean" : "1.093%"
+	},
+	{
+		"model" : "BernoulliNaiveBayes",
+		"mean" : "4.326%"
+	},
+	{
+		"model" : "RandomForestClassifier",
+		"mean" : "9.093%"
+	},
+	{
+		"model" : "ExtraTreeClassifier",
+		"mean" : "8.302%"
+	},
+	{
+		"model" : "AdaBoostClassifeir",
+		"mean"  : "4.791%"
+	}
+
+]
