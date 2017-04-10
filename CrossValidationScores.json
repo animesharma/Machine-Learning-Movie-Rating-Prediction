@@ -30,6 +30,10 @@
 	{
 		"model" : "AdaBoostClassifeir",
 		"mean"  : "4.791%"
+	},
+	{
+		"model": "SVC",
+		"mean" : "6.628%"
 	}
 
 ]

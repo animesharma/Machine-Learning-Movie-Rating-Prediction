@@ -9,10 +9,8 @@ import matplotlib.pyplot as plt
 from pandas.tools.plotting import scatter_matrix
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
-from sklearn.neighbors import KNeighborsRegressor
-from sklearn.naive_bayes import BernoulliNB
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import GridSearchCV
+from sklearn.svm import LinearSVC
 
 # Importing Data
 dataset = pd.read_csv('Data.csv')
@@ -70,12 +68,6 @@ X = imp.fit_transform(X)
 #Entire dataset is ready
 #Performing K Fold cross validation
 kfold = KFold(n_splits=5, random_state=7)
-estimators = []
-for i in range(1,3):
-    estimators.append(10**i - 1)
-param_grid = dict(n_estimators=estimators)
-model = RandomForestClassifier()
-grid = GridSearchCV(estimator=model,param_grid=param_grid)
-grid.fit(X,Ystr)
-print(grid.best_score_)
-print(grid.best_estimator_.n_estimators)
+model = LinearSVC()
+results = cross_val_score(model, X, Ystr, cv=kfold)
+print("Accuracy: %.3f%% (%.3f%%)" % (results.mean()*100.0, results.std()*100.0))
