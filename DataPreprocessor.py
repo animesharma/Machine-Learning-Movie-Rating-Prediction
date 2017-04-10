@@ -3,11 +3,13 @@ from __future__ import absolute_import, division, print_function
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import (Imputer, LabelEncoder, OneHotEncoder,StandardScaler)
+from sklearn.preprocessing import (Imputer, LabelEncoder,StandardScaler)
 from sklearn import metrics
 from sklearn.feature_selection import RFE
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import StandardScaler
+
+import warnings
+warnings.simplefilter(action = "ignore", category = FutureWarning)
 
 # Importing Data
 dataset = pd.read_csv('Data.csv')
@@ -38,6 +40,7 @@ Ystr = np.asarray(df.iloc[:, df.shape[1]-1], dtype="|S6") #numpy is moody
 #Convert it to float
 Y = Ystr.astype(np.float)
 
+#Keeps throwing the error msg
 label_language = LabelEncoder()
 X[0:, language_pos] = label_language.fit_transform(X[0:, language_pos])
 label_country = LabelEncoder()
@@ -48,12 +51,6 @@ X[0:, content_rating_pos] = label_content_rating.fit_transform(X[0:, content_rat
 imp = Imputer(missing_values='NaN', strategy='mean', axis=0)
 X = imp.fit_transform(X)
 
-#Scaling X
-print(X[0:5,:])
-scaler = StandardScaler().fit(X)
-X = scaler.transform(X)
-print(X[0:5,:])
-
 #Lets pick the important features
 model = RandomForestClassifier()
 rfe = RFE(model,15)                  
@@ -62,15 +59,25 @@ rfe = rfe.fit(X,Ystr)
 #print(rfe.support_)    #These are the coloumns we're keeping
 #print(rfe.ranking_)    #These are ranking the coloumns
 
-#Drop some of the coloumns. Keep 10 in the end
+#Drop the unimportant features
 drop_list = []
 for i in range(0,len(rfe.support_)):
     if rfe.support_[i]:
-        print(df.columns.values[i])
+        print(df.columns.values[i])     #TODO Remove this later
     else:
         drop_list.append(i)
 X = np.delete(X,drop_list,axis=1)
 
-print(X.shape)
+
+#Scaling X
+
+"""
+We don't use OneHotEncoder as we are already using LabelEncoder.
+Whoever suggested we use OneHotEncoder was an idiot.
+"""
+
+scaler = StandardScaler().fit(X)
+X = scaler.transform(X)
+
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, Ystr, test_size = 0.15, random_state = 0)
