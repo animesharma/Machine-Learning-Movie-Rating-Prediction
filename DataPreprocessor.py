@@ -3,14 +3,10 @@ from __future__ import absolute_import, division, print_function
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import (Imputer, LabelEncoder, OneHotEncoder,
-                                   StandardScaler)
-import matplotlib.pyplot as plt
-from pandas.tools.plotting import scatter_matrix
-from sklearn.model_selection import KFold
-from sklearn.model_selection import cross_val_score
+from sklearn.preprocessing import (Imputer, LabelEncoder, OneHotEncoder,StandardScaler)
+from sklearn import metrics
+from sklearn.feature_selection import RFE
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import LinearSVC
 
 # Importing Data
 dataset = pd.read_csv('Data.csv')
@@ -65,9 +61,11 @@ X[0:, actor_3_name_pos] = label_actor_3_name.fit_transform(X[0:, actor_3_name_po
 imp = Imputer(missing_values='NaN', strategy='mean', axis=0)
 X = imp.fit_transform(X)
 
-#Entire dataset is ready
-#Performing K Fold cross validation
-kfold = KFold(n_splits=5, random_state=7)
-model = LinearSVC()
-results = cross_val_score(model, X, Ystr, cv=kfold)
-print("Accuracy: %.3f%% (%.3f%%)" % (results.mean()*100.0, results.std()*100.0))
+#Lets pick the important features
+model = RandomForestClassifier()
+rfe = RFE(model,10)
+rfe = rfe.fit(X,Ystr)
+print(rfe.support_)
+print(rfe.ranking_)
+for imp in rfe.support_:
+    
